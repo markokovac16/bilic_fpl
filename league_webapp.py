@@ -491,8 +491,21 @@ if raw_data_input:
                 else:
                     fig2, ax2 = plt.subplots(figsize=(16, 8))
                     
-                    # Create distinct colors for each team
-                    colors = sns.color_palette("husl", len(valid_teams))
+                    # Create more distinct colors using a custom color palette
+                    custom_colors = ['#FF0000',  # Bright Red
+                 '#0000FF',  # Bright Blue
+                 '#008000',  # Dark Green
+                 '#FFA500',  # Bright Orange
+                 '#800080',  # Purple
+                 '#00FFFF',  # Cyan
+                 '#FFD700',  # Gold/Yellow
+                 '#000000',  # Black
+                 '#FF69B4',  # Hot Pink
+                 '#A52A2A']  # Brown
+                    
+                    # If we have more teams than colors, extend the palette
+                    while len(custom_colors) < len(valid_teams):
+                        custom_colors.extend(sns.color_palette("Set2", len(valid_teams) - len(custom_colors)))
                     
                     # Plot lines for each team
                     for idx, team in enumerate(sorted(valid_teams)):
@@ -501,13 +514,13 @@ if raw_data_input:
                             rounds = list(range(1, len(positions) + 1))
                             
                             ax2.plot(rounds, positions, 
-                                    linewidth=2, 
+                                    linewidth=2.5,  # Made lines slightly thicker
                                     linestyle='-', 
                                     label=team,
-                                    color=colors[idx],
+                                    color=custom_colors[idx],
                                     marker='o',
-                                    markersize=3,
-                                    alpha=0.8)
+                                    markersize=4,    # Made markers slightly larger
+                                    alpha=1.0)       # Full opacity
                     
                     # Chart formatting
                     ax2.set_title('Kretanje Pozicija u Tablici Kroz Sezonu', fontsize=16, pad=20)
